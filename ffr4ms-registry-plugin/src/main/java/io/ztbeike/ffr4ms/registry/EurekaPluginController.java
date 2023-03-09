@@ -3,7 +3,6 @@ package io.ztbeike.ffr4ms.registry;
 import io.ztbeike.ffr4ms.registry.entity.MSConfig;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -22,7 +21,7 @@ public class EurekaPluginController {
         return service.getApps();
     }
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     public String hello() {
         return "hello";
     }
