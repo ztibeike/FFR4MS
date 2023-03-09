@@ -4,10 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Map;
+
+/**
+ * 微服务实例
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Service {
+public class MSInstance {
 
     /**
      * 服务实例名称, 即实例组名称
@@ -22,10 +27,15 @@ public class Service {
     /**
      * 服务实例端口
      */
-    private String port;
+    private Integer port;
 
     /**
      * 服务实例地址, 即IP:Port
      */
     private String address;
+
+    /**
+     * 服务实例元信息
+     */
+    private Map<String, String> metadata;
 }

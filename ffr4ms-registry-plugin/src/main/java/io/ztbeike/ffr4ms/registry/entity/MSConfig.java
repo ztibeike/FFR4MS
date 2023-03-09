@@ -8,20 +8,23 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * 微服务系统配置
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Response {
+public class MSConfig {
 
     /**
      * 服务实例列表
      */
-    private Map<String, List<Service>> services;
+    private Map<String, List<MSInstance>> services;
 
     /**
      * 网关实例列表
      */
-    private Map<String, List<Service>> gateways;
+    private Map<String, List<MSInstance>> gateways;
 
     /**
      * 服务实例组(cluster)名称

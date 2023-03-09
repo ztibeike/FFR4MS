@@ -1,6 +1,6 @@
 package io.ztbeike.ffr4ms.registry;
 
-import io.ztbeike.ffr4ms.registry.entity.Response;
+import io.ztbeike.ffr4ms.registry.entity.MSConfig;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ public class EurekaPluginController {
     private EurekaPluginService service = new EurekaPluginService();
 
     @GetMapping(value = "/conf")
-    public Response getConf() {
+    public MSConfig getConf() {
         return service.getApps();
     }
 
