@@ -1,5 +1,6 @@
 package io.ztbeike.ffr4ms.gateway.cache;
 
+import io.ztbeike.ffr4ms.gateway.model.CacheModel;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
@@ -7,7 +8,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.lang.Nullable;
 
 @Slf4j
-public abstract class DefaultGatewayCache<T> implements GatewayCache<T>{
+public abstract class DefaultGatewayCache<T extends CacheModel> implements GatewayCache<T>{
 
     @Getter
     private Cache cache;
@@ -18,6 +19,10 @@ public abstract class DefaultGatewayCache<T> implements GatewayCache<T>{
 
     @Override
     public boolean set(String key, T object) {
+        if (!object.validForCache()) {
+            log.error("Model is not valid for caching: {}", object);
+            return false;
+        }
         cache.put(key, object);
         if (log.isDebugEnabled()) {
             log.debug("cache data, key: {}, value: {}", key, object);

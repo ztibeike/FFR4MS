@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
-
-import java.util.Map;
 
 /**
  * 缓存微服务实例响应
@@ -15,7 +14,7 @@ import java.util.Map;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseCacheModel {
+public class ResponseCacheModel extends CacheModel {
 
     /**
      * 链路追踪id
@@ -25,7 +24,7 @@ public class ResponseCacheModel {
     /**
      * 请求uri
      */
-    private String requestUri;
+    private String requestURI;
 
     /**
      * 服务实例名称
@@ -43,12 +42,13 @@ public class ResponseCacheModel {
     private String body;
 
 
-    private Map<String, String> headers;
+    private HttpHeaders headers;
 
+    @Override
     public boolean validForCache() {
         return !StringUtils.isEmpty(this.traceId)
                 && !StringUtils.isEmpty(this.serviceName)
-                && !StringUtils.isEmpty(this.requestUri);
+                && !StringUtils.isEmpty(this.requestURI);
     }
 
     public boolean valid() {

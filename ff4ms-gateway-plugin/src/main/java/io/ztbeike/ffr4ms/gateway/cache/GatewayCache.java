@@ -1,6 +1,8 @@
 package io.ztbeike.ffr4ms.gateway.cache;
 
-public interface GatewayCache<T> {
+import io.ztbeike.ffr4ms.gateway.model.CacheModel;
+
+public interface GatewayCache<T extends CacheModel> {
 
     boolean set(String key, T object);
 
