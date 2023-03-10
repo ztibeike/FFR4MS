@@ -17,4 +17,9 @@ public class TraceConstant {
      */
     public static final String SERVICE_NAME_HEADER = "service-name";
 
+    /**
+     * 标识该响应被网关拦截和从缓存中返回
+     */
+    public static final String CACHED_RESPONSE_FLAG_HEADER = "cached-response";
+
 }
