@@ -4,6 +4,8 @@ import com.netflix.util.Pair;
 import com.netflix.zuul.context.RequestContext;
 import io.ztbeike.ffr4ms.common.constant.TraceConstant;
 import io.ztbeike.ffr4ms.gateway.cache.GatewayCache;
+import io.ztbeike.ffr4ms.gateway.cache.GatewayCacheFactory;
+import io.ztbeike.ffr4ms.gateway.cache.support.CacheConstants;
 import io.ztbeike.ffr4ms.gateway.model.ResponseCacheModel;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
@@ -24,12 +26,12 @@ import java.util.StringJoiner;
 @Slf4j
 public class ResponseCacheContext {
 
-    private GatewayCache<ResponseCacheModel> cache;
+    private final GatewayCache<ResponseCacheModel> cache;
 
-    private RequestContext context;
+    private final RequestContext context;
 
-    public ResponseCacheContext(GatewayCache<ResponseCacheModel> cache) {
-        this.cache = cache;
+    public ResponseCacheContext(GatewayCacheFactory factory) {
+        this.cache = factory.getCache(CacheConstants.RESPONSE_CACHE_NAME, ResponseCacheModel.class);
         this.context = GatewayRequestContext.getContext();
     }
 

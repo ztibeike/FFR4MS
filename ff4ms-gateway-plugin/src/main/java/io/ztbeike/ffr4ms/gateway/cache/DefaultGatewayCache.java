@@ -8,7 +8,7 @@ import org.springframework.cache.CacheManager;
 import org.springframework.lang.Nullable;
 
 @Slf4j
-public abstract class DefaultGatewayCache<T extends CacheModel> implements GatewayCache<T>{
+public class DefaultGatewayCache<T extends CacheModel> implements GatewayCache<T>{
 
     @Getter
     private Cache cache;
