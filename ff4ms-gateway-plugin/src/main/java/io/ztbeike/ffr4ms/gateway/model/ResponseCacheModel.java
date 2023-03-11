@@ -1,9 +1,6 @@
 package io.ztbeike.ffr4ms.gateway.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.StringUtils;
 
@@ -11,6 +8,7 @@ import org.springframework.util.StringUtils;
  * 缓存微服务实例响应
  */
 @Data
+@EqualsAndHashCode(exclude = "headers", callSuper = false)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,7 +39,9 @@ public class ResponseCacheModel extends CacheModel {
      */
     private String body;
 
-
+    /**
+     * 响应头
+     */
     private HttpHeaders headers;
 
     @Override

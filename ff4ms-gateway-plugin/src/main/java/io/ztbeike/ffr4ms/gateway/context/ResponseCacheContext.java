@@ -3,6 +3,7 @@ package io.ztbeike.ffr4ms.gateway.context;
 import com.netflix.util.Pair;
 import com.netflix.zuul.context.RequestContext;
 import io.ztbeike.ffr4ms.common.constant.TraceConstant;
+import io.ztbeike.ffr4ms.common.util.TraceUtil;
 import io.ztbeike.ffr4ms.gateway.cache.GatewayCache;
 import io.ztbeike.ffr4ms.gateway.cache.GatewayCacheFactory;
 import io.ztbeike.ffr4ms.gateway.cache.support.CacheConstants;
@@ -13,7 +14,6 @@ import org.springframework.cloud.netflix.ribbon.RibbonHttpResponse;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.http.HttpHeaders;
 import org.springframework.util.CollectionUtils;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -134,9 +134,7 @@ public class ResponseCacheContext {
     private boolean shouldCache() {
         Map<String, String> headers = GatewayRequestContext.getRequestHeaders();
         // 判断请求头中是否包含trace信息
-        boolean containTrace = !StringUtils.isEmpty(headers.get(TraceConstant.TRACE_ID_HEADER))
-                && !StringUtils.isEmpty(headers.get(TraceConstant.SERVICE_NAME_HEADER))
-                && !StringUtils.isEmpty(headers.get(TraceConstant.TRACE_SERVICE_INSTANCE_HEADER));
+        boolean containTrace = TraceUtil.containTraceInfo(headers);
         if (!containTrace) {
             if (log.isDebugEnabled()) {
                 log.debug("Response in current context is not cached, because the request does not contain trace information");
