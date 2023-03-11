@@ -80,6 +80,7 @@ public class ResponseCacheContext {
 
     /**
      * 从缓存中获取当前上下文的响应
+     *
      * @return 缓存的响应信息
      */
     public ResponseCacheModel get() {
@@ -99,6 +100,7 @@ public class ResponseCacheContext {
 
     /**
      * 抽取公共方法: 从上下文中获取服务名称, 请求URI和traceId
+     *
      * @param model 需要被设置相关属性的响应实体
      */
     private void setCommonInfoFromContext(ResponseCacheModel model) {
@@ -118,6 +120,7 @@ public class ResponseCacheContext {
 
     /**
      * 根据缓存实体构建缓存key
+     *
      * @param model 被缓存实体
      * @return 缓存key
      */
@@ -129,6 +132,7 @@ public class ResponseCacheContext {
 
     /**
      * 判断是否需要被缓存
+     *
      * @return 判断结果
      */
     private boolean shouldCache() {

@@ -1,7 +1,6 @@
 package io.ztbeike.ffr4ms.gateway.cache;
 
 import io.ztbeike.ffr4ms.gateway.model.CacheModel;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
@@ -10,8 +9,7 @@ import org.springframework.lang.Nullable;
 @Slf4j
 public class DefaultGatewayCache<T extends CacheModel> implements GatewayCache<T>{
 
-    @Getter
-    private Cache cache;
+    protected Cache cache;
 
     public DefaultGatewayCache(String cacheName, CacheManager cacheManager) {
         this.cache = cacheManager.getCache(cacheName);
