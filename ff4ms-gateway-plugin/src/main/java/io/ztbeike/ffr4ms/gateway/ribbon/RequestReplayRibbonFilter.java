@@ -23,7 +23,7 @@ import java.util.concurrent.Future;
  * 重播失败请求
  */
 @Slf4j
-public class RequestReplayFilter extends RibbonRoutingFilter {
+public class RequestReplayRibbonFilter extends RibbonRoutingFilter {
 
 
     private final ExecutorService executorService;
@@ -37,8 +37,8 @@ public class RequestReplayFilter extends RibbonRoutingFilter {
 
     private static final ThreadLocal<RouteExecuteInfo> ROUTE_EXECUTE_THREAD_LOCAL = new TransmittableThreadLocal<>();
 
-    public RequestReplayFilter(ProxyRequestHelper helper, RibbonCommandFactory<?> ribbonCommandFactory,
-                               List<RibbonRequestCustomizer> requestCustomizers, ExecutorService executorService) {
+    public RequestReplayRibbonFilter(ProxyRequestHelper helper, RibbonCommandFactory<?> ribbonCommandFactory,
+                                     List<RibbonRequestCustomizer> requestCustomizers, ExecutorService executorService) {
         super(helper, ribbonCommandFactory, requestCustomizers);
         this.executorService = executorService;
         // 在当前场景下每个K-V对只需要put一次, ConcurrentHashMap不能保证线程安全, 使用普通HashMap
