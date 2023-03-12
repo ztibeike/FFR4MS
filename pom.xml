@@ -12,7 +12,8 @@
         <module>ffr4ms-registry-plugin</module>
         <module>ffr4ms-common</module>
         <module>ffr4ms-trace-plugin</module>
-        <module>ff4ms-gateway-plugin</module>
+        <module>ffr4ms-gateway-plugin</module>
+        <module>ffr4ms-gateway-plugin-autoconfigure</module>
     </modules>
 
     <parent>

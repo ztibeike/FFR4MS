@@ -18,6 +18,9 @@ public class GatewayAPIRouter {
     private static final String gatewayApiPrefix = "/frecovery";
 
 
+    /**
+     * @return API路由的前缀
+     */
     public static String getGatewayApiPrefix() {
         return gatewayApiPrefix;
     }

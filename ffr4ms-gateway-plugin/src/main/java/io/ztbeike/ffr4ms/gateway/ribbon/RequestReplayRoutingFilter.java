@@ -102,7 +102,7 @@ public class RequestReplayRoutingFilter extends RibbonRoutingFilter {
         List<RouteExecuteInfo> executeInfoList = this.executingRoutes.get(serviceId);
         if (!CollectionUtils.isEmpty(executeInfoList)) {
             // 锁住executeInfoList, 保证线程安全
-            synchronized (executeInfoList) {
+            synchronized (this.executingRoutes.get(serviceId)) {
                 RouteExecuteInfo executeInfo = new RouteExecuteInfo(null, host, port, serviceId);
                 executeInfoList.forEach(info -> {
                     if (executeInfo.equals(info)) {
