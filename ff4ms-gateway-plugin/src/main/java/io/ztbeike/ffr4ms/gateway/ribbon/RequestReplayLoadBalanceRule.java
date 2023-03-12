@@ -33,7 +33,6 @@ public class RequestReplayLoadBalanceRule extends RandomRule {
         if (lb instanceof BaseLoadBalancer) {
             BaseLoadBalancer loadBalancer = (BaseLoadBalancer) lb;
             String serviceName = loadBalancer.getName();
-            ServiceInstanceList serviceInstanceList = this.serviceMap.get(serviceName);
             // 首先从优先实例列表中选择
             server = priorChoose(serviceName, lb);
             // 如果没有优先实例, 则从所有实例中随机选取
@@ -43,7 +42,7 @@ public class RequestReplayLoadBalanceRule extends RandomRule {
         }
         if (server != null) {
             // 将实例信息注入线程上下文
-            RouteExecuteInfo executeInfo = RequestReplayRibbonFilter.getContextExecuteInfo();
+            RouteExecuteInfo executeInfo = RequestReplayRoutingFilter.getContextExecuteInfo();
             executeInfo.setHost(server.getHost());
             executeInfo.setPort(server.getPort());
         }
