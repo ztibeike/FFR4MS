@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.ztbeike.ffr4ms.gateway.autoconfigure.EnableGatewayPluginAutoConfiguration
