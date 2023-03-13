@@ -41,7 +41,7 @@ public class EurekaRegistryMain {
 }
 ```
 3. 访问API接口获取系统配置
-```http request
+```http
 GET http://{registry-ip}:{registry-port}/frecovery/conf
 ```
 
@@ -108,7 +108,7 @@ eureka:
 ```
 
 4. 访问API接口隔离某个微服务实例和设置某个微服务实例优先
-```http request
+```http
 POST http://{gateway-ip}:{gateway:port}/frecovery/replace
 Content-Type: application/json;charset=utf-8
 Accept: application/json
