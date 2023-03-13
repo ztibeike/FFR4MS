@@ -40,20 +40,20 @@ public class EnableGatewayPluginAutoConfiguration {
 
     @Bean
     @ConditionalOnMissingBean(CacheManager.class)
-    public CacheManager cacheManager() {
+    public CacheManager cacheManager(Caffeine<Object, Object> caffeine) {
         CaffeineCacheManager cacheManager = new CaffeineCacheManager();
-        cacheManager.setCaffeine(caffeine());
+        cacheManager.setCaffeine(caffeine);
         return cacheManager;
     }
 
     @Bean
-    public GatewayCacheFactory gatewayCacheFactory() {
-        return new GatewayCacheFactory(cacheManager());
+    public GatewayCacheFactory gatewayCacheFactory(CacheManager cacheManager) {
+        return new GatewayCacheFactory(cacheManager);
     }
 
     @Bean
-    public ResponseCacheContext responseCacheContext() {
-        return new ResponseCacheContext(gatewayCacheFactory());
+    public ResponseCacheContext responseCacheContext(GatewayCacheFactory gatewayCacheFactory) {
+        return new ResponseCacheContext(gatewayCacheFactory);
     }
 
 }
