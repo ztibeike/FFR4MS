@@ -19,7 +19,7 @@ import java.util.Map;
  * 目前主要功能是获取服务实例列表
  */
 @Slf4j
-public class EurekaPluginService {
+public class RegistryPluginService {
 
     /**
      * Eureka注册中心对象

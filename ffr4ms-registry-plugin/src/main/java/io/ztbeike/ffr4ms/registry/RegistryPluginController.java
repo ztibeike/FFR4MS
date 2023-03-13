@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @Lazy
-public class EurekaPluginController {
+public class RegistryPluginController {
 
-    private EurekaPluginService service = new EurekaPluginService();
+    private RegistryPluginService service = new RegistryPluginService();
 
     @GetMapping(value = "/conf")
     public MSConfig getConf() {

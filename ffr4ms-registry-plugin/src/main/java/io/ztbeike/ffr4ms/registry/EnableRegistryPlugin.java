@@ -10,6 +10,6 @@ import java.lang.annotation.*;
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-@Import(EurekaPluginController.class)
-public @interface EnableEurekaPlugin {
+@Import(RegistryPluginController.class)
+public @interface EnableRegistryPlugin {
 }
