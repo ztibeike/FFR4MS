@@ -28,11 +28,9 @@ public class ResponseCacheContext {
 
     private final GatewayCache<ResponseCacheModel> cache;
 
-    private final RequestContext context;
 
     public ResponseCacheContext(GatewayCacheFactory factory) {
         this.cache = factory.getCache(CacheConstants.RESPONSE_CACHE_NAME, ResponseCacheModel.class);
-        this.context = GatewayRequestContext.getContext();
     }
 
     /**
@@ -44,8 +42,10 @@ public class ResponseCacheContext {
         }
         String traceId = GatewayRequestContext.getRequestHeader(TraceConstant.TRACE_ID_HEADER);
 
+        RequestContext context = GatewayRequestContext.getContext();
+
         // 获取网关转发请求的响应
-        Object zuulResponse = this.context.get("zuulResponse");
+        Object zuulResponse = context.get("zuulResponse");
         if (zuulResponse == null) {
             log.error("No zuul response in current context for traceId: {}", traceId);
             return;
@@ -55,9 +55,9 @@ public class ResponseCacheContext {
         // 获取响应体
         String body = "";
         try {
-            body = IOUtils.toString(response.getBody(), this.context.getResponse().getCharacterEncoding());
+            body = IOUtils.toString(response.getBody(), context.getResponse().getCharacterEncoding());
             // 获取response body后需要将body重新放进context中
-            this.context.setResponseBody(body);
+            context.setResponseBody(body);
         } catch (IOException e) {
             log.error("Failed to get response body in current context for traceId: {}", traceId);
         }
@@ -104,12 +104,13 @@ public class ResponseCacheContext {
      * @param model 需要被设置相关属性的响应实体
      */
     private void setCommonInfoFromContext(ResponseCacheModel model) {
+        RequestContext context = GatewayRequestContext.getContext();
         // 获取服务实例名称
-        Object serviceId = this.context.get(FilterConstants.SERVICE_ID_KEY);
+        Object serviceId = context.get(FilterConstants.SERVICE_ID_KEY);
         String serviceName = serviceId == null ? null : serviceId.toString();
 
         // 获取请求URI
-        Object uri = this.context.get(FilterConstants.REQUEST_URI_KEY);
+        Object uri = context.get(FilterConstants.REQUEST_URI_KEY);
         String requestURI = uri == null ? null : uri.toString();
 
         String traceId = GatewayRequestContext.getRequestHeader(TraceConstant.TRACE_ID_HEADER);
@@ -151,14 +152,14 @@ public class ResponseCacheContext {
             for (Pair<String, String> responseHeader : responseHeaders) {
                 if (TraceConstant.CACHED_RESPONSE_FLAG_HEADER.equals(responseHeader.first())
                         && Boolean.TRUE.toString().equalsIgnoreCase(responseHeader.second())) {
-                    return true;
+                    if (log.isDebugEnabled()) {
+                        log.debug("Response in current context is not cached, because downstream response is already cached by it's gateway");
+                    }
+                    return false;
                 }
             }
         }
-        if (log.isDebugEnabled()) {
-            log.debug("Response in current context is not cached, because downstream response is already cached by it's gateway");
-        }
-        return false;
+        return true;
     }
 
 }
