@@ -5,6 +5,7 @@ import com.alibaba.fastjson2.JSONObject;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import com.netflix.zuul.exception.ZuulException;
+import io.ztbeike.ffr4ms.common.constant.APIConstant;
 import io.ztbeike.ffr4ms.gateway.api.GatewayAPIHandler;
 import io.ztbeike.ffr4ms.gateway.api.GatewayAPIRouter;
 import io.ztbeike.ffr4ms.gateway.api.dto.FrecoveryResponse;
@@ -39,7 +40,7 @@ public class ZuulApiHandleFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return GatewayRequestContext.getRequest().getRequestURI().startsWith(GatewayAPIRouter.getGatewayApiPrefix());
+        return GatewayRequestContext.getRequest().getRequestURI().startsWith(APIConstant.API_URL_COMMON_PREFIX);
     }
 
     @Override

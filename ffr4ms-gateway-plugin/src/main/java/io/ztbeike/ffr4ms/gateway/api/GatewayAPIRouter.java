@@ -1,5 +1,6 @@
 package io.ztbeike.ffr4ms.gateway.api;
 
+import io.ztbeike.ffr4ms.common.constant.APIConstant;
 import io.ztbeike.ffr4ms.gateway.api.dto.FrecoveryResponse;
 
 import java.util.HashMap;
@@ -12,23 +13,15 @@ public class GatewayAPIRouter {
 
     private final Map<String, GatewayAPIHandler> router;
 
-    /**
-     * API路由的前缀
-     */
-    private static final String gatewayApiPrefix = "/frecovery";
-
 
     /**
      * @return API路由的前缀
      */
-    public static String getGatewayApiPrefix() {
-        return gatewayApiPrefix;
-    }
 
     public GatewayAPIRouter() {
         this.router = new HashMap<>();
         // 默认路由
-        this.router.put(gatewayApiPrefix, new GatewayAPIHandler() {
+        this.router.put(APIConstant.API_URL_COMMON_PREFIX, new GatewayAPIHandler() {
             @Override
             public FrecoveryResponse run() {
                 return FrecoveryResponse.bad().setMessage("No such API");
@@ -45,7 +38,7 @@ public class GatewayAPIRouter {
         if (!uri.startsWith("/")) {
             uri = "/" + uri;
         }
-        this.router.put(gatewayApiPrefix + uri, handler);
+        this.router.put(APIConstant.API_URL_COMMON_PREFIX + uri, handler);
     }
 
     /**
@@ -55,7 +48,7 @@ public class GatewayAPIRouter {
      */
     public GatewayAPIHandler getHandler(String uri) {
         if (!this.router.containsKey(uri)) {
-            uri = gatewayApiPrefix;
+            uri = APIConstant.API_URL_COMMON_PREFIX;
         }
         return this.router.get(uri);
     }
