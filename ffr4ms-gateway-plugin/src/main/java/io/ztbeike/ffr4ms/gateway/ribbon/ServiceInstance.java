@@ -10,7 +10,7 @@ import sun.misc.Unsafe;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@EqualsAndHashCode(exclude = "priorCount")
+@EqualsAndHashCode(exclude = "priorTTL")
 public class ServiceInstance {
 
     /**
@@ -38,6 +38,11 @@ public class ServiceInstance {
      * 优先选取次数
      */
     private volatile int priorTTL;
+
+    /**
+     * 优先实例被优先选取次数的阈值
+     */
+    public static final int INSTANCE_PRIOR_TTL_THRESHOLD = 10;
 
     private static final Unsafe unsafe = Unsafe.getUnsafe();
 
