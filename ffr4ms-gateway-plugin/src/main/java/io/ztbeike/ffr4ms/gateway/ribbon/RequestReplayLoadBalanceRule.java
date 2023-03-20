@@ -77,7 +77,21 @@ public class RequestReplayLoadBalanceRule extends RandomRule {
             return priorInstances.contains(instance);
         }).collect(Collectors.toList());
         // 从可用优先实例中随机选取实例
-        return randomChoose(servers, serviceName);
+        Server server = randomChoose(servers, serviceName);
+        if (server != null) {
+            // 找到被选取的实例
+            ServiceInstance temp = new ServiceInstance(serviceName, server.getHost(), server.getPort(), ServiceInstanceStatus.PRIOR, 0);
+            ServiceInstance priorInstance = priorInstances.stream().filter(instance1 -> instance1.equals(temp)).collect(Collectors.toList()).get(0);
+            // 使用CAS将该实例的优先选取次数减1
+            int count = priorInstance.decreasePriorCount();
+            // 如果被优先选取的次数大于阈值, 则移除优先列表, 避免所有请求都转发至优先实例
+            if (count <= 0) {
+                synchronized (this.serviceMap.get(serviceName).priorInstances) {
+                    this.serviceMap.get(serviceName).priorInstances.remove(priorInstance);
+                }
+            }
+        }
+        return server;
     }
 
     /**

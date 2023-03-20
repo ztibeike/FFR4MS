@@ -2,6 +2,7 @@ package io.ztbeike.ffr4ms.gateway.api.handler;
 
 import com.alibaba.fastjson2.JSONException;
 import com.alibaba.fastjson2.JSONObject;
+import io.ztbeike.ffr4ms.common.constant.GatewayConstant;
 import io.ztbeike.ffr4ms.gateway.api.dto.FrecoveryResponse;
 import io.ztbeike.ffr4ms.gateway.api.GatewayAPIHandler;
 import io.ztbeike.ffr4ms.gateway.api.dto.ReplaceInstanceDTO;
@@ -50,13 +51,13 @@ public class ReplaceInstanceAPIHandler extends GatewayAPIHandler {
             // 标记优先实例
             if (dto.validForReplaceInstance()) {
                 ServiceInstance instance = new ServiceInstance(dto.getServiceName(), dto.getReplaceInstanceHost(),
-                        dto.getReplaceInstancePort(), ServiceInstanceStatus.PRIOR);
+                        dto.getReplaceInstancePort(), ServiceInstanceStatus.PRIOR, GatewayConstant.INSTANCE_PRIOR_TTL);
                 this.loadBalanceRule.markServiceInstanceStatus(instance, ServiceInstanceStatus.PRIOR);
             }
             // 标记故障实例
             if (dto.validForDownInstance()) {
                 ServiceInstance instance = new ServiceInstance(dto.getServiceName(), dto.getDownInstanceHost(),
-                        dto.getDownInstancePort(), ServiceInstanceStatus.FAULT);
+                        dto.getDownInstancePort(), ServiceInstanceStatus.FAULT, 0);
                 this.loadBalanceRule.markServiceInstanceStatus(instance, ServiceInstanceStatus.FAULT);
                 this.routingFilter.cancelServiceFuture(dto.getServiceName(), dto.getDownInstanceHost(),
                         dto.getDownInstancePort());

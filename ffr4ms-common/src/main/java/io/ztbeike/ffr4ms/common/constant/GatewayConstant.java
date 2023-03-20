@@ -10,7 +10,12 @@ public class GatewayConstant {
     /**
      * 标识网关管理的实例组名称
      */
-
     public static final String GATEWAY_APP_NAME_SUFFIX = "-GATEWAY";
+
+
+    /**
+     * 优先实例被优先选取次数的阈值
+     */
+    public static final int INSTANCE_PRIOR_TTL = 10;
 
 }

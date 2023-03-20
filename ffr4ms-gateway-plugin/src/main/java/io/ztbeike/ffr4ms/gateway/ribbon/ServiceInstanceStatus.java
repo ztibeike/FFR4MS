@@ -22,7 +22,7 @@ public enum ServiceInstanceStatus {
                 }
             }
             // 从故障列表中移除服务实例
-            ServiceInstance temp = new ServiceInstance(instance.getServiceName(), instance.getHost(), instance.getPort(), ServiceInstanceStatus.FAULT);
+            ServiceInstance temp = new ServiceInstance(instance.getServiceName(), instance.getHost(), instance.getPort(), ServiceInstanceStatus.FAULT, 0);
             synchronized (serviceInstanceList.getFaultInstances()) {
                 List<ServiceInstance> faultInstances = serviceInstanceList.getFaultInstances();
                 faultInstances.remove(temp);
@@ -45,7 +45,7 @@ public enum ServiceInstanceStatus {
                 }
             }
             // 从优先列表中移除
-            ServiceInstance temp = new ServiceInstance(instance.getServiceName(), instance.getHost(), instance.getPort(), ServiceInstanceStatus.PRIOR);
+            ServiceInstance temp = new ServiceInstance(instance.getServiceName(), instance.getHost(), instance.getPort(), ServiceInstanceStatus.PRIOR, 0);
             synchronized (serviceInstanceList.getPriorInstances()) {
                 List<ServiceInstance> priorInstances = serviceInstanceList.getPriorInstances();
                 priorInstances.remove(temp);
@@ -60,7 +60,7 @@ public enum ServiceInstanceStatus {
         @Override
         public void markStatus(RequestReplayLoadBalanceRule.ServiceInstanceList serviceInstanceList, ServiceInstance instance) {
             // 从故障列表中移除
-            ServiceInstance temp = new ServiceInstance(instance.getServiceName(), instance.getHost(), instance.getPort(), ServiceInstanceStatus.FAULT);
+            ServiceInstance temp = new ServiceInstance(instance.getServiceName(), instance.getHost(), instance.getPort(), ServiceInstanceStatus.FAULT, 0);
             synchronized (serviceInstanceList.getFaultInstances()) {
                 List<ServiceInstance> faultInstances = serviceInstanceList.getFaultInstances();
                 faultInstances.remove(temp);
