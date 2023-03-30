@@ -3,12 +3,13 @@ package io.ztbeike.ffr4ms.gateway.ribbon;
 import lombok.*;
 import sun.misc.Unsafe;
 
+import java.lang.reflect.Field;
+
 /**
  *
  */
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 @EqualsAndHashCode(exclude = "priorTTL")
 public class ServiceInstance {
@@ -44,7 +45,17 @@ public class ServiceInstance {
      */
     public static final int INSTANCE_PRIOR_TTL_THRESHOLD = 10;
 
-    private static final Unsafe unsafe = Unsafe.getUnsafe();
+    private static Unsafe unsafe;
+
+    static {
+        try {
+            Field f = Unsafe.class.getDeclaredField("theUnsafe");
+            f.setAccessible(true);
+            unsafe = (Unsafe) f.get(null);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * CAS自旋减1
