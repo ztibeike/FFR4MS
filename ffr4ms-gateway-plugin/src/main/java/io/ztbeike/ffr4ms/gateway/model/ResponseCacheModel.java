@@ -12,7 +12,7 @@ import org.springframework.util.StringUtils;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseCacheModel extends CacheModel {
+public class ResponseCacheModel implements CacheModel {
 
     /**
      * 链路追踪id

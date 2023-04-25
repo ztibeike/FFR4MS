@@ -25,7 +25,7 @@ public class EnableGatewayPluginAutoConfiguration {
     @ConditionalOnMissingBean(name = "routingExecutorService")
     public ExecutorService routingExecutorService() {
         ThreadPoolExecutor executorService = new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors() * 2,
-                Integer.MAX_VALUE, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<Runnable>());
+                256, 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(64), new ThreadPoolExecutor.CallerRunsPolicy());
         return TtlExecutors.getTtlExecutorService(executorService);
     }
 

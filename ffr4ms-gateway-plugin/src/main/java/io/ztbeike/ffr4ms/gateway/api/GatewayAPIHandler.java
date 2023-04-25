@@ -5,9 +5,9 @@ import io.ztbeike.ffr4ms.gateway.api.dto.FrecoveryResponse;
 /**
  * handler抽象类
  */
-public abstract class GatewayAPIHandler {
+public interface GatewayAPIHandler {
 
 
-    public abstract FrecoveryResponse run();
+    FrecoveryResponse run();
 
 }

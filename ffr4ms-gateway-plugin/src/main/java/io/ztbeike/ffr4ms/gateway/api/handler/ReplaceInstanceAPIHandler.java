@@ -23,7 +23,7 @@ import java.nio.charset.StandardCharsets;
  * 标记实例优先与故障
  */
 @Slf4j
-public class ReplaceInstanceAPIHandler extends GatewayAPIHandler {
+public class ReplaceInstanceAPIHandler implements GatewayAPIHandler {
 
     private final RequestReplayRoutingFilter routingFilter;
 

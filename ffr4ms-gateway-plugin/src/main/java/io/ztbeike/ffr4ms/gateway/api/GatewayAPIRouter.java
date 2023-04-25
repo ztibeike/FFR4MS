@@ -21,12 +21,7 @@ public class GatewayAPIRouter {
     public GatewayAPIRouter() {
         this.router = new HashMap<>();
         // 默认路由
-        this.router.put(APIConstant.API_URL_COMMON_PREFIX, new GatewayAPIHandler() {
-            @Override
-            public FrecoveryResponse run() {
-                return FrecoveryResponse.bad().setMessage("No such API");
-            }
-        });
+        this.router.put(APIConstant.API_URL_COMMON_PREFIX, () -> FrecoveryResponse.bad().setMessage("No such API"));
     }
 
     /**

@@ -14,6 +14,7 @@ import java.util.concurrent.Future;
 @EqualsAndHashCode(exclude = "future")
 @Builder
 public class RouteExecuteInfo {
+
     private Future<ClientHttpResponse> future;
 
     private String host;

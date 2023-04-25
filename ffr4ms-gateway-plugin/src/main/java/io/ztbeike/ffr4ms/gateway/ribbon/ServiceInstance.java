@@ -45,7 +45,7 @@ public class ServiceInstance {
      */
     public static final int INSTANCE_PRIOR_TTL_THRESHOLD = 10;
 
-    private static Unsafe unsafe;
+    private static final Unsafe unsafe;
 
     static {
         try {
