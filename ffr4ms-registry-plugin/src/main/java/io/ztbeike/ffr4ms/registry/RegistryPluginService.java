@@ -54,8 +54,8 @@ public class RegistryPluginService {
                 msInstance.setIp(instance.getIPAddr());
                 msInstance.setPort(instance.getPort());
                 msInstance.setAddress(instance.getInstanceId());
+                msInstance.setMetadata(instance.getMetadata());
                 if (appType.equals(AppType.GATEWAY)) {
-                    msInstance.setMetadata(instance.getMetadata());
                     appName = instance.getMetadata().get(GatewayConstant.GATEWAY_METADATA_KEY).toUpperCase() + GatewayConstant.GATEWAY_APP_NAME_SUFFIX;
                     msInstance.setName(appName);
                 }
