@@ -56,6 +56,7 @@ public class ZuulApiHandleFilter extends ZuulFilter {
 
         try {
             // 返回执行结果
+            context.getResponse().addHeader("Content-Type", "application/json");
             context.getResponse().getWriter().write(JSONObject.toJSONString(response));
         } catch (IOException | JSONException e) {
             log.error("Error occurs while write response to context");
