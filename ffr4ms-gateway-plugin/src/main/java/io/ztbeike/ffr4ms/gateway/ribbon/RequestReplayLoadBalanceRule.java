@@ -57,7 +57,7 @@ public class RequestReplayLoadBalanceRule extends RandomRule {
      */
     private Server priorChoose(String serviceName, ILoadBalancer lb) {
         ServiceInstanceList serviceInstanceList = this.serviceMap.get(serviceName);
-        if (serviceInstanceList == null || !CollectionUtils.isEmpty(serviceInstanceList.priorInstances)) {
+        if (serviceInstanceList == null || CollectionUtils.isEmpty(serviceInstanceList.priorInstances)) {
             return null;
         }
         List<ServiceInstance> priorInstances = new ArrayList<>(this.serviceMap.get(serviceName).priorInstances.size());
