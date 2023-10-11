@@ -20,6 +20,7 @@ public class GatewayCacheFactory {
         this.singletonCacheMap = new HashMap<>();
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends CacheModel> GatewayCache<T> getCache(String cacheName, Class<T> modelClass) {
         if (!this.singletonCacheMap.containsKey(cacheName)) {
             synchronized (this.singletonCacheMap) {

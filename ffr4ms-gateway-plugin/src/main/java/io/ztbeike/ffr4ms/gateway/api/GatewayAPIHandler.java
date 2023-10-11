@@ -3,7 +3,7 @@ package io.ztbeike.ffr4ms.gateway.api;
 import io.ztbeike.ffr4ms.gateway.api.dto.FrecoveryResponse;
 
 /**
- * handler抽象类
+ * handler接口
  */
 public interface GatewayAPIHandler {
 

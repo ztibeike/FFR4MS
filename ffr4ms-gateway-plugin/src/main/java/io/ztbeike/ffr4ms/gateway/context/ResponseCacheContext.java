@@ -148,7 +148,7 @@ public class ResponseCacheContext {
         }
         // 如果请求头中包含trace信息, 则判断下游的响应是否是网关缓存的
         List<Pair<String, String>> responseHeaders = GatewayRequestContext.getContext().getZuulResponseHeaders();
-        if (CollectionUtils.isEmpty(responseHeaders)) {
+        if (!CollectionUtils.isEmpty(responseHeaders)) {
             for (Pair<String, String> responseHeader : responseHeaders) {
                 if (TraceConstant.CACHED_RESPONSE_FLAG_HEADER.equals(responseHeader.first())
                         && Boolean.TRUE.toString().equalsIgnoreCase(responseHeader.second())) {
